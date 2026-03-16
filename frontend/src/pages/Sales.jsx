@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Plus, TrendingUp } from 'lucide-react';
 
 const Sales = () => {
@@ -11,8 +11,8 @@ const Sales = () => {
 
     const fetchData = async () => {
         const [pRes, oRes] = await Promise.all([
-            axios.get('http://localhost:5000/api/products'),
-            axios.get('http://localhost:5000/api/sales')
+            api.get('/api/products'),
+            api.get('/api/sales')
         ]);
         setProducts(pRes.data);
         setOrders(oRes.data);
@@ -26,7 +26,7 @@ const Sales = () => {
         e.preventDefault();
         setError('');
         try {
-            await axios.post('http://localhost:5000/api/sales', formData);
+            await api.post('/api/sales', formData);
             setShowModal(false);
             setFormData({ product: '', quantity: '' });
             fetchData();

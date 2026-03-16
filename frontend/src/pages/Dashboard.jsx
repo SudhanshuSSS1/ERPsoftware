@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Box, ShoppingCart, TrendingUp, AlertTriangle } from 'lucide-react';
 
 const Dashboard = () => {
@@ -7,7 +7,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchSummary = async () => {
-            const { data } = await axios.get('http://localhost:5000/api/reports/summary');
+            const { data } = await api.get('/api/reports/summary');
             setSummary(data);
         };
         fetchSummary();

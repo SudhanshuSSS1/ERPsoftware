@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Plus } from 'lucide-react';
 
 const Purchases = () => {
@@ -11,9 +11,9 @@ const Purchases = () => {
 
     const fetchData = async () => {
         const [pRes, vRes, purRes] = await Promise.all([
-            axios.get('http://localhost:5000/api/products'),
-            axios.get('http://localhost:5000/api/vendors'),
-            axios.get('http://localhost:5000/api/purchases')
+            api.get('/api/products'),
+            api.get('/api/vendors'),
+            api.get('/api/purchases')
         ]);
         setProducts(pRes.data);
         setVendors(vRes.data);
@@ -26,7 +26,7 @@ const Purchases = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:5000/api/purchases', formData);
+        await api.post('/api/purchases', formData);
         setShowModal(false);
         setFormData({ product: '', vendor: '', quantity: '' });
         fetchData();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 
 const Vendors = () => {
@@ -9,7 +9,7 @@ const Vendors = () => {
     const [formData, setFormData] = useState({ name: '', contact: '', address: '' });
 
     const fetchVendors = async () => {
-        const { data } = await axios.get('http://localhost:5000/api/vendors');
+        const { data } = await api.get('/api/vendors');
         setVendors(data);
     };
 
@@ -20,9 +20,9 @@ const Vendors = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (editingVendor) {
-            await axios.put(`http://localhost:5000/api/vendors/${editingVendor._id}`, formData);
+            await api.put(`/api/vendors/${editingVendor._id}`, formData);
         } else {
-            await axios.post('http://localhost:5000/api/vendors', formData);
+            await api.post('/api/vendors', formData);
         }
         setShowModal(false);
         setEditingVendor(null);
@@ -38,7 +38,7 @@ const Vendors = () => {
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this vendor?')) {
-            await axios.delete(`http://localhost:5000/api/vendors/${id}`);
+            await api.delete(`/api/vendors/${id}`);
             fetchVendors();
         }
     };

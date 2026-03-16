@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { BarChart3, TrendingUp, ShoppingCart, Box } from 'lucide-react';
 
 const Reports = () => {
@@ -10,9 +10,9 @@ const Reports = () => {
 
     const fetchData = async () => {
         const [sRes, pRes, prRes] = await Promise.all([
-            axios.get('http://localhost:5000/api/sales'),
-            axios.get('http://localhost:5000/api/purchases'),
-            axios.get('http://localhost:5000/api/products')
+            api.get('/api/sales'),
+            api.get('/api/purchases'),
+            api.get('/api/products')
         ]);
         setSales(sRes.data);
         setPurchases(pRes.data);

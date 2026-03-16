@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 
 const Inventory = () => {
@@ -9,7 +9,7 @@ const Inventory = () => {
     const [formData, setFormData] = useState({ name: '', price: '', quantity: '' });
 
     const fetchProducts = async () => {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await api.get('/api/products');
         setProducts(data);
     };
 
@@ -20,9 +20,9 @@ const Inventory = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (editingProduct) {
-            await axios.put(`http://localhost:5000/api/products/${editingProduct._id}`, formData);
+            await api.put(`/api/products/${editingProduct._id}`, formData);
         } else {
-            await axios.post('http://localhost:5000/api/products', formData);
+            await api.post('/api/products', formData);
         }
         setShowModal(false);
         setEditingProduct(null);
@@ -38,7 +38,7 @@ const Inventory = () => {
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
-            await axios.delete(`http://localhost:5000/api/products/${id}`);
+            await api.delete(`/api/products/${id}`);
             fetchProducts();
         }
     };
