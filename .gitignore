@@ -1,0 +1,16 @@
+# Root Gitignore
+node_modules/
+.env
+dist/
+build/
+.vscode/
+.idea/
+*.log
+.vercel/
+.gemini/
+scripts/
+
+# Ignore frontend-specific node_modules (handled by frontend/.gitignore, but good to have here)
+frontend/node_modules/
+backend/node_modules/
+backend/.env
